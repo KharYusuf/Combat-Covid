@@ -68,8 +68,11 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: ListView(
-        children: cards.map((e) => MyCard(e['img'], e['text'])).toList(),
+      body: ListView.builder(
+        itemCount: cards.length,
+        itemBuilder: (context, i) {
+          return MyCard(cards[i]['img'], cards[i]['text']);
+        },
       ),
     );
   }
