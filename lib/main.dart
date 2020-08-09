@@ -27,6 +27,11 @@ class MyHomePage extends StatelessWidget {
   static const cards = const [
     {'img': 'assets/homemade_face_mask.png', 'text': 'My first Card'},
     {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
   ];
 
   @override
@@ -63,7 +68,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Column(
+      body: ListView(
         children: cards.map((e) => MyCard(e['img'], e['text'])).toList(),
       ),
     );

@@ -10,10 +10,12 @@ class MyCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: RaisedButton(
+        padding: EdgeInsets.all(0.0),
         onPressed: () {
           print(text);
         },
-        child: Stack( 
+        child: Stack(
+          alignment: Alignment.bottomCenter,
           children: <Widget>[
             Container(
               height: 200,
@@ -24,9 +26,11 @@ class MyCard extends StatelessWidget {
               ),
             ),
             Container(
-              height: 200,
-              alignment: Alignment.bottomCenter,
+              height: 40,
+              color: Theme.of(context).primaryColor,
+              width: double.infinity,
               child: FittedBox(
+                alignment: Alignment.bottomCenter,
                 child: Text(
                   text,
                 ),
