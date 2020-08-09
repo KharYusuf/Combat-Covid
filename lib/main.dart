@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      darkTheme: ThemeData(
+          primarySwatch: Colors.grey,
+          accentColor: Colors.black,
+          colorScheme: ColorScheme.dark()),
+      theme: ThemeData.light(),
       home: MyHomePage(title: 'Combat Covid'),
     );
   }
@@ -31,6 +32,34 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 30.0),
+              child: ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+            ListTile(
+              title: Text('Statistics'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('News'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(title),
       ),
