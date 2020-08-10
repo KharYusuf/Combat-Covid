@@ -8,23 +8,23 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(6.0),
       child: RaisedButton(
         onPressed: () {
           print(text);
         },
-        child: Stack( 
+        child: Column(
           children: <Widget>[
             Container(
-              height: 200,
-              alignment: Alignment.topCenter,
+              height: MediaQuery.of(context).size.height / 6,
+              alignment: Alignment.center,
               child: Image.asset(
                 img,
                 fit: BoxFit.cover,
               ),
             ),
             Container(
-              height: 200,
+              height: MediaQuery.of(context).size.height / 6,
               alignment: Alignment.bottomCenter,
               child: FittedBox(
                 child: Text(
