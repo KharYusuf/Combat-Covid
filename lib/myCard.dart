@@ -13,10 +13,10 @@ class MyCard extends StatelessWidget {
         onPressed: () {
           print(text);
         },
-        child: Column(
+        child: Stack(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height / 6,
+              height: MediaQuery.of(context).size.height / 4,
               alignment: Alignment.center,
               child: Image.asset(
                 img,
@@ -24,7 +24,7 @@ class MyCard extends StatelessWidget {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height / 6,
+              height: MediaQuery.of(context).size.height / 4,
               alignment: Alignment.bottomCenter,
               child: FittedBox(
                 child: Text(
