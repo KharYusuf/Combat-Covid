@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './custom_icons_icons.dart';
 
 class BottomTabs extends StatelessWidget {
   final int _currentPageIndex;
@@ -13,7 +14,7 @@ class BottomTabs extends StatelessWidget {
       onTap: _setSelectedPage,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.adb),
+          icon: Icon(CustomIcons.mask),
           title: Text('Masks'),
         ),
         BottomNavigationBarItem(
