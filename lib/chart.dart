@@ -4,9 +4,11 @@ import './scrappedData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class Chart extends StatelessWidget {
-  List<ScrapedData> casesList;
-
-  Chart(this.casesList);
+  final List<ScrapedData> casesList = [
+    ScrapedData(DateTime.now(), 10000),
+    ScrapedData(DateTime.now().add(new Duration(days: 1)), 5000),
+    ScrapedData(DateTime.now().add(new Duration(days: 2)), 7000),
+  ];
   @override
   Widget build(BuildContext context) {
     List<charts.Series<ScrapedData, String>> series = [
@@ -21,43 +23,13 @@ class Chart extends StatelessWidget {
       )
     ];
     return new Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 30.0),
-              child: ListTile(
-                title: Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            ListTile(
-              title: Text('Statistics'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('News'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-                title: Text('View Cases'),
-                onTap: () {
-                  Navigator.pop(context);
-                }),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: Text("Combat Covid"),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.exit_to_app), onPressed: null)
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => Navigator.of(context).pop(),
+          )
         ],
       ),
       body: Container(
@@ -70,10 +42,11 @@ class Chart extends StatelessWidget {
               children: <Widget>[
                 Text("Cases per day"),
                 Expanded(
-                    child: charts.BarChart(
-                  series,
-                  animate: true,
-                )),
+                  child: charts.BarChart(
+                    series,
+                    animate: true,
+                  ),
+                ),
               ],
             ),
           ),

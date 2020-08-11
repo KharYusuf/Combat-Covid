@@ -1,7 +1,8 @@
+import 'package:Combat_Covid/main_drawer.dart';
+
+import './bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'myCard.dart';
-import './scrappedData.dart';
-import './chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,22 +17,27 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.grey,
           accentColor: Colors.black,
           colorScheme: ColorScheme.dark()),
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+        ),
+      ),
       home: MyHomePage(title: 'Combat Covid'),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  List<ScrapedData> data = [
-    ScrapedData(DateTime.now(), 10000),
-    ScrapedData(DateTime.now().add(new Duration(days: 1)), 5000),
-    ScrapedData(DateTime.now().add(new Duration(days: 2)), 7000),
-  ];
-
   final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   static const cards = const [
     {'img': 'assets/homemade_face_mask.png', 'text': 'My first Card'},
     {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
@@ -42,73 +48,37 @@ class MyHomePage extends StatelessWidget {
     {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
   ];
 
+  final _pages = <Widget>[
+    ListView.builder(
+      itemCount: cards.length,
+      itemBuilder: (context, i) {
+        return MyCard(
+          cards[i]['img'],
+          cards[i]['text'],
+        );
+      },
+    ),
+    const Text("Dummy tab 2"),
+    const Text("Dummy tab 3"),
+  ];
+
+  int _currentPageIndex = 0;
+
+  void _setSelectedPage(index) {
+    setState(() {
+      _currentPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new DefaultTabController(
-      length: 3,
-      child: new Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(top: 30.0),
-                child: ListTile(
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              ListTile(
-                title: Text('Statistics'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text('News'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                  title: Text('View Cases'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => new Chart(data)));
-                  }),
-            ],
-          ),
-        ),
-        appBar: AppBar(
-          title: Text(title),
-          bottom: new TabBar(tabs: <Widget>[
-            new Tab(text: "Home"),
-            new Tab(text: "Dummy tab 2"),
-            new Tab(text: "Dummy tab 3"),
-          ]),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.exit_to_app), onPressed: null)
-          ],
-        ),
-        body: new TabBarView(children: <Widget>[
-          ListView.builder(
-              itemCount: cards.length,
-              itemBuilder: (context, i) {
-                return MyCard(cards[i]['img'], cards[i]['text']);
-              }),
-          new Text("Dummy tab 2"),
-          new Text("Dummy tab 3")
-        ]),
-        /*body: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: cards.map((e) => MyCard(e['img'], e['text'])).toList(),
-      ),*/
+    return Scaffold(
+      drawer: MyDrawer(),
+      appBar: AppBar(
+        title: Text(widget.title),
       ),
+      body: _pages[_currentPageIndex],
+      bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),
     );
   }
 }

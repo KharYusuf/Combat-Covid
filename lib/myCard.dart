@@ -10,6 +10,7 @@ class MyCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(6.0),
       child: RaisedButton(
+        splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(0.0),
         onPressed: () {
           print(text);
