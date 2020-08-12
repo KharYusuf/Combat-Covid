@@ -25,12 +25,6 @@ class Chart extends StatelessWidget {
     return new Scaffold(
       appBar: AppBar(
         title: Text("Combat Covid"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
       ),
       body: Container(
         height: 400,
