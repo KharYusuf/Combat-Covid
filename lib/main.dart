@@ -1,8 +1,9 @@
-import 'package:Combat_Covid/main_drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 import './bottom_navigation_bar.dart';
-import 'package:flutter/material.dart';
-import 'myCard.dart';
+import './main_drawer.dart';
+import './myCard.dart';
 
 void main() {
   runApp(MyApp());
@@ -76,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
