@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   final _pages = <Widget>[
-    ListView.builder(
+    GridView.builder(
       itemCount: cards.length,
       itemBuilder: (context, i) {
         return MyCard(
@@ -57,6 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
           cards[i]['text'],
         );
       },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1,
+        childAspectRatio: 3 / 2,
+      ),
     ),
     const Text("Dummy tab 2"),
     const Text("Dummy tab 3"),
@@ -76,6 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            alignment: Alignment.centerRight,
+            icon: Icon(Icons.shopping_basket),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: _pages[_currentPageIndex],
       bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),

@@ -8,36 +8,34 @@ class MyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(6.0),
+      padding: EdgeInsets.all(15.0),
       child: RaisedButton(
         splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(0.0),
         onPressed: () {
           print(text);
         },
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            Container(
-              height: 200,
-              alignment: Alignment.center,
-              child: Image.asset(
-                img,
-                fit: BoxFit.cover,
-              ),
+        child: GridTile(
+          child: Image.asset(
+            img,
+            fit: BoxFit.fitWidth,
+          ),
+          footer: GridTileBar(
+            leading: IconButton(
+              icon: Icon(Icons.my_location),
+              onPressed: () {},
             ),
-            Container(
-              height: 40,
-              color: Theme.of(context).primaryColor,
-              width: double.infinity,
-              child: FittedBox(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  text,
-                ),
-              ),
-            )
-          ],
+            backgroundColor: Colors.black54,
+            trailing: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
+            title: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
       ),
     );
