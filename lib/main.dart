@@ -85,7 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: <Widget>[
           IconButton(
             alignment: Alignment.centerRight,
-            icon: Icon(Icons.shopping_basket),
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.pink,
+            ),
             onPressed: () {},
           ),
         ],

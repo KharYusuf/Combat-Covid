@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyCard extends StatelessWidget {
+class MyCard extends StatefulWidget {
   final String img;
   final String text;
+
   MyCard(this.img, this.text);
+
+  @override
+  _MyCardState createState() => _MyCardState();
+}
+
+class _MyCardState extends State<MyCard> {
+  Color color = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +21,11 @@ class MyCard extends StatelessWidget {
         splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(0.0),
         onPressed: () {
-          print(text);
+          print(widget.text);
         },
         child: GridTile(
           child: Image.asset(
-            img,
+            widget.img,
             fit: BoxFit.fitWidth,
           ),
           footer: GridTileBar(
@@ -27,11 +35,21 @@ class MyCard extends StatelessWidget {
             ),
             backgroundColor: Colors.black54,
             trailing: IconButton(
-              icon: Icon(Icons.shopping_cart),
-              onPressed: () {},
+              icon: Icon(Icons.favorite),
+              color: color,
+              onPressed: () {
+                setState(
+                  () {
+                    if (color == Colors.white)
+                      color = Colors.pink;
+                    else
+                      color = Colors.white;
+                  },
+                );
+              },
             ),
             title: Text(
-              text,
+              widget.text,
               textAlign: TextAlign.center,
               style: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
             ),
