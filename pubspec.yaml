@@ -26,6 +26,9 @@ dependencies:
   intl: ^0.16.1
   charts_flutter: ^0.8.1
   flutter_statusbarcolor: ^0.2.3
+  firebase_core: ^0.5.0
+  firebase_auth: ^0.18.0+1
+  google_sign_in: ^4.5.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,7 +52,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/homemade_face_mask.png
+    - assets/
   fonts:
     - family:  MyFlutterApp
       fonts:

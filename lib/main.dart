@@ -1,15 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import './bottom_navigation_bar.dart';
-import './main_drawer.dart';
-import './myCard.dart';
+import './home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await handleSignIn();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+FirebaseAuth _auth = FirebaseAuth.instance;
+User _user;
+GoogleSignIn _googleSignIn = new GoogleSignIn();
+
+bool isSignIn = false;
+
+Future<void> handleSignIn() async {
+  GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+  GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+  AuthCredential credential = GoogleAuthProvider.getCredential(
+    idToken: googleSignInAuthentication.idToken,
+    accessToken: googleSignInAuthentication.accessToken,
+  );
+
+  UserCredential result = (await _auth.signInWithCredential(credential));
+
+  _user = result.user;
+
+  isSignIn = true;
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,77 +55,69 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
         ),
       ),
-      home: MyHomePage(title: 'Combat Covid'),
+      home: isSignIn
+          ? MyHomePage(title: 'Combat Covid')
+          : Center(
+              child: OutlineButton(
+                onPressed: () {
+                  handleSignIn();
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+                highlightElevation: 0,
+                borderSide: BorderSide(color: Colors.grey),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image(
+                          image: AssetImage("assets/google_logo.png"),
+                          height: 35.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  Future<void> handleSignIn() async {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
 
-  final String title;
+    AuthCredential credential = GoogleAuthProvider.getCredential(
+      idToken: googleSignInAuthentication.idToken,
+      accessToken: googleSignInAuthentication.accessToken,
+    );
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+    UserCredential result = (await _auth.signInWithCredential(credential));
 
-class _MyHomePageState extends State<MyHomePage> {
-  static const cards = const [
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My first Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-  ];
+    _user = result.user;
 
-  final _pages = <Widget>[
-    GridView.builder(
-      itemCount: cards.length,
-      itemBuilder: (context, i) {
-        return MyCard(
-          cards[i]['img'],
-          cards[i]['text'],
-        );
-      },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        childAspectRatio: 3 / 2,
-      ),
-    ),
-    const Text("Dummy tab 2"),
-    const Text("Dummy tab 3"),
-  ];
-
-  int _currentPageIndex = 0;
-
-  void _setSelectedPage(index) {
     setState(() {
-      _currentPageIndex = index;
+      isSignIn = true;
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
-    return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            alignment: Alignment.centerRight,
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.pink,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: _pages[_currentPageIndex],
-      bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),
-    );
+  Future<void> googleSignout() async {
+    await _auth.signOut().then((onValue) {
+      _googleSignIn.signOut();
+      setState(() {
+        isSignIn = false;
+      });
+    });
   }
 }
