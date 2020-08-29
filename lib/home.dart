@@ -6,15 +6,19 @@ import './main_drawer.dart';
 import './myCard.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, @required this.signout}) : super(key: key);
 
   final String title;
+  Function signout;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(signout);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  _MyHomePageState(this.signout);
+  Function signout;
+
   static const cards = const [
     {'img': 'assets/homemade_face_mask.png', 'text': 'My first Card'},
     {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
@@ -55,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
     return Scaffold(
-      drawer: MyDrawer(),
+      drawer: MyDrawer(signout),
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[

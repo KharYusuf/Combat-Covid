@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import './chart.dart';
 
 class MyDrawer extends StatelessWidget {
+  Function signout;
+  MyDrawer(this.signout);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,6 +17,7 @@ class MyDrawer extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 30.0),
               child: ListTile(
+                leading: Icon(Icons.home),
                 title: Text('Home'),
                 onTap: () {
                   Navigator.pop(context);
@@ -20,6 +25,7 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
+              leading: Icon(Icons.insert_chart),
               title: Text('View Cases'),
               onTap: () {
                 Navigator.of(context).pop();
@@ -28,9 +34,17 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.new_releases),
               title: Text('News'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Logout'),
+              onTap: () {
+                signout();
               },
             ),
           ],

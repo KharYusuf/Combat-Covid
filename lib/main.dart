@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home: isSignIn
-          ? MyHomePage(title: 'Combat Covid')
+          ? MyHomePage(title: 'Combat Covid', signout: googleSignout)
           : Center(
               child: OutlineButton(
                 onPressed: () {
