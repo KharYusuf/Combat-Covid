@@ -8,31 +8,7 @@ import './home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await handleSignIn();
   runApp(MyApp());
-}
-
-FirebaseAuth _auth = FirebaseAuth.instance;
-User _user;
-GoogleSignIn _googleSignIn = new GoogleSignIn();
-
-bool isSignIn = false;
-
-Future<void> handleSignIn() async {
-  GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-  GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
-  AuthCredential credential = GoogleAuthProvider.getCredential(
-    idToken: googleSignInAuthentication.idToken,
-    accessToken: googleSignInAuthentication.accessToken,
-  );
-
-  UserCredential result = (await _auth.signInWithCredential(credential));
-
-  _user = result.user;
-
-  isSignIn = true;
 }
 
 class MyApp extends StatefulWidget {
@@ -92,6 +68,12 @@ class _MyAppState extends State<MyApp> {
             ),
     );
   }
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  User _user;
+  GoogleSignIn _googleSignIn = new GoogleSignIn();
+
+  bool isSignIn = false;
 
   Future<void> handleSignIn() async {
     GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
