@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './chart.dart';
+import './providers/auth.dart';
 
 class MyDrawer extends StatelessWidget {
-  Function signout;
-  MyDrawer(this.signout);
+  MyDrawer();
 
   @override
   Widget build(BuildContext context) {
+    final loginData = Provider.of<Auth>(context, listen: false);
     return Drawer(
       child: Container(
         color: Theme.of(context).primaryColor,
@@ -43,9 +45,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
-              onTap: () {
-                signout();
-              },
+              onTap: loginData.googleSignout,
             ),
           ],
         ),
