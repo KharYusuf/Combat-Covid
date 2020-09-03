@@ -71,7 +71,9 @@ class Auth with ChangeNotifier {
     await _auth.signOut().then((onValue) {
       _googleSignIn.signOut();
     });
-    _user = null;
+    _userId = null;
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
 
     notifyListeners();
   }
