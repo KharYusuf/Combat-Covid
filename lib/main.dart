@@ -41,13 +41,41 @@ class MyApp extends StatelessWidget {
           ),
           home: auth.isSignIn
               ? MyHomePage(title: 'Combat Covid')
-              : FutureBuilder(
-                  future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshot) =>
-                      authResultSnapshot.connectionState ==
-                              ConnectionState.waiting
-                          ? CircularProgressIndicator()
-                          : SignIn()),
+              : auth.signingInFirstTime
+                  ? Scaffold(
+                      body: Center(
+                        child: Container(
+                          width: 200,
+                          child: ListTile(
+                            title: const Text("Signing you in"),
+                            trailing: const CircularProgressIndicator(
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : FutureBuilder(
+                      future: auth.tryAutoLogin(),
+                      builder: (ctx, authResultSnapshot) {
+                        print(authResultSnapshot.connectionState);
+                        return authResultSnapshot.connectionState ==
+                                ConnectionState.waiting
+                            ? Scaffold(
+                                body: Center(
+                                  child: Container(
+                                    width: 150,
+                                    child: ListTile(
+                                      title: const Text("Loading"),
+                                      trailing: const CircularProgressIndicator(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SignIn();
+                      }),
         ),
       ),
     );
