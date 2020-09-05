@@ -6,6 +6,11 @@ class Auth with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User _user;
   GoogleSignIn _googleSignIn = new GoogleSignIn();
+  bool _signingInFirstTime = false;
+
+  bool get signingInFirstTime {
+    return _signingInFirstTime;
+  }
 
   User get user {
     return _user;
@@ -17,6 +22,8 @@ class Auth with ChangeNotifier {
 
   Future<void> handleSignIn() async {
     GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    _signingInFirstTime = true;
+    notifyListeners();
     GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
@@ -28,6 +35,7 @@ class Auth with ChangeNotifier {
     UserCredential result = await _auth.signInWithCredential(credential);
 
     _user = result.user;
+    _signingInFirstTime = false;
 
     notifyListeners();
   }
