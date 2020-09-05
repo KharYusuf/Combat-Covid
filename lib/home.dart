@@ -6,6 +6,7 @@ import './bottom_navigation_bar.dart';
 import './main_drawer.dart';
 import './myCard.dart';
 import './providers/products.dart';
+import './providers/auth.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -58,9 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
-
+    var user = Provider.of<Auth>(context);
     _getPages();
-
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
@@ -72,7 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
               Icons.exit_to_app,
               color: Colors.pink,
             ),
-            onPressed: () {},
+            onPressed: () {
+              user.googleSignout();
+            },
           ),
         ],
       ),
