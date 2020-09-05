@@ -1,15 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Products with ChangeNotifier {
-  String _userId, _token;
+  User _user;
   Products();
 
-  set setUserId(String userId) {
-    _userId = userId;
-  }
-
-  set setToken(String token) {
-    _token = token;
+  set setUser(User user) {
+    _user = user;
   }
 
   static const cards = const [
