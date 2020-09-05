@@ -25,13 +25,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
-    final cardsData = Provider.of<Products>(context);
-    final cards = cardsData.getItems;
+  var _pages;
 
-    final _pages = <Widget>[
+  Future<void> _refreshHome() async {
+    setState(() {
+      _getPages();
+    });
+  }
+
+  void _getPages() {
+    var cardsData = Provider.of<Products>(context);
+    var cards = cardsData.getItems;
+    _pages = <Widget>[
       GridView.builder(
         itemCount: cards.length,
         itemBuilder: (context, i) {
@@ -48,6 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
       const Text("Dummy tab 2"),
       const Text("Dummy tab 3"),
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
+
+    _getPages();
 
     return Scaffold(
       drawer: MyDrawer(),
@@ -57,14 +69,17 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             alignment: Alignment.centerRight,
             icon: Icon(
-              Icons.favorite,
+              Icons.exit_to_app,
               color: Colors.pink,
             ),
             onPressed: () {},
           ),
         ],
       ),
-      body: _pages[_currentPageIndex],
+      body: RefreshIndicator(
+        onRefresh: _refreshHome,
+        child: _pages[_currentPageIndex],
+      ),
       bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),
     );
   }
