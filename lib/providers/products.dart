@@ -9,14 +9,42 @@ class Products with ChangeNotifier {
     _user = user;
   }
 
-  static const cards = const [
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My first Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
-    {'img': 'assets/homemade_face_mask.png', 'text': 'My Second Card'},
+  var cards = [
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My first Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
+    {
+      'img':
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+      'text': 'My Second Card'
+    },
   ];
 
   List<Map<String, String>> get getItems {

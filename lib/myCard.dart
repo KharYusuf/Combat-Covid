@@ -24,8 +24,8 @@ class _MyCardState extends State<MyCard> {
           print(widget.text);
         },
         child: GridTile(
-          child: Image.asset(
-            widget.img,
+          child: Image(
+            image: NetworkImage(widget.img),
             fit: BoxFit.fitWidth,
           ),
           footer: GridTileBar(
