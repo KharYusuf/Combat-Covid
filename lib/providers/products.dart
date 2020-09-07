@@ -3,46 +3,48 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Products with ChangeNotifier {
   User _user;
-  Products();
 
   set setUser(User user) {
     _user = user;
   }
 
-  var cards = [
+  Future<void> setItems() async {
+    //TODO
+  }
+  static const cards = const [
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My first Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
     {
       'img':
-          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/homemade_face_mask.png?alt=media',
+          'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
       'text': 'My Second Card'
     },
   ];

@@ -1,3 +1,4 @@
+import 'package:Combat_Covid/myCardDetails.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
@@ -22,6 +23,8 @@ class _MyCardState extends State<MyCard> {
         padding: EdgeInsets.all(0.0),
         onPressed: () {
           print(widget.text);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => MyCardDetails(widget.text)));
         },
         child: GridTile(
           child: Image(

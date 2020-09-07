@@ -28,15 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var _pages;
 
-  Future<void> _refreshHome() async {
-    setState(() {
-      _getPages();
-    });
+  Future<void> _refreshHome(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).setItems();
   }
 
   void _getPages() {
-    var cardsData = Provider.of<Products>(context);
-    var cards = cardsData.getItems;
+    final cardsData = Provider.of<Products>(context);
+    final cards = cardsData.getItems;
     _pages = <Widget>[
       GridView.builder(
         itemCount: cards.length,
@@ -69,17 +67,15 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
             alignment: Alignment.centerRight,
             icon: Icon(
-              Icons.exit_to_app,
+              Icons.favorite,
               color: Colors.pink,
             ),
-            onPressed: () {
-              user.googleSignout();
-            },
+            onPressed: () {},
           ),
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: _refreshHome,
+        onRefresh: () => _refreshHome(context),
         child: _pages[_currentPageIndex],
       ),
       bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),

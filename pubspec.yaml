@@ -26,9 +26,9 @@ dependencies:
   intl: ^0.16.1
   charts_flutter: ^0.8.1
   flutter_statusbarcolor: ^0.2.3
-  firebase_core: 
-  firebase_auth: 
-  firebase_storage: 
+  firebase_core: ^0.5.0
+  firebase_auth: ^0.18.0+1
+  firebase_storage: ^4.0.0
   google_sign_in: ^4.5.3
   http: ^0.12.2
   provider: ^4.3.2+1
