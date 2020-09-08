@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-import './bottom_navigation_bar.dart';
-import './main_drawer.dart';
-import './myCard.dart';
-import './providers/products.dart';
-import './providers/auth.dart';
+import '../widgets/bottom_navigation_bar.dart';
+import '../widgets/main_drawer.dart';
+import '../providers/products.dart';
+import '../providers/auth.dart';
+import '../widgets/masks.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -19,6 +19,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentPageIndex = 0;
+  final List<Widget> _pages = <Widget>[
+    Masks(),
+    const Text("Dummy tab 2"),
+    const Text("Dummy tab 3"),
+  ];
+
+  @override
+  void initState() {
+    Provider.of<Products>(context, listen: false).setItems();
+    super.initState();
+  }
 
   void _setSelectedPage(index) {
     setState(() {
@@ -26,39 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  var _pages;
-
   Future<void> _refreshHome(BuildContext context) async {
     await Provider.of<Products>(context, listen: false).setItems();
-  }
-
-  void _getPages() {
-    final cardsData = Provider.of<Products>(context);
-    final cards = cardsData.getItems;
-    _pages = <Widget>[
-      GridView.builder(
-        itemCount: cards.length,
-        itemBuilder: (context, i) {
-          return MyCard(
-            cards[i]['img'],
-            cards[i]['text'],
-          );
-        },
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          childAspectRatio: 3 / 2,
-        ),
-      ),
-      const Text("Dummy tab 2"),
-      const Text("Dummy tab 3"),
-    ];
   }
 
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
-    var user = Provider.of<Auth>(context);
-    _getPages();
+    final user = Provider.of<Auth>(context).user;
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(

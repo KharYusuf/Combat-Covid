@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import './home.dart';
+import 'screens/home.dart';
 import './providers/auth.dart';
 import './providers/products.dart';
 import './screens/sign_in.dart';
@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
           create: (_) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-            create: (context) => Products(),
-            update: (ctx, auth, previousProducts) =>
-                previousProducts..setUser = auth.user),
+          create: (context) => Products(),
+          update: (ctx, auth, previousProducts) =>
+              previousProducts..setUser = auth.user,
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(

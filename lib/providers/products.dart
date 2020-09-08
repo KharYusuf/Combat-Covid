@@ -11,7 +11,7 @@ class Products with ChangeNotifier {
   Future<void> setItems() async {
     //TODO
   }
-  static const cards = const [
+  static const _cards = const [
     {
       'img':
           'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
@@ -50,6 +50,6 @@ class Products with ChangeNotifier {
   ];
 
   List<Map<String, String>> get getItems {
-    return cards;
+    return [..._cards];
   }
 }

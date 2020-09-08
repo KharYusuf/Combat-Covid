@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './my_flutter_app_icons.dart';
+import '../constants/my_flutter_app_icons.dart';
 
 class BottomTabs extends StatelessWidget {
   final int _currentPageIndex;

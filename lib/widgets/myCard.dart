@@ -1,4 +1,4 @@
-import 'package:Combat_Covid/myCardDetails.dart';
+import 'package:Combat_Covid/screens/myCardDetails.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {

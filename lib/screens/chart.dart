@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import './models/scrappedData.dart';
+import '../models/scrappedData.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class Chart extends StatelessWidget {
