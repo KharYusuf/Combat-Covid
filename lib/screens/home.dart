@@ -5,7 +5,6 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/main_drawer.dart';
 import '../providers/products.dart';
-import '../providers/auth.dart';
 import '../widgets/masks.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -37,14 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> _refreshHome(BuildContext context) async {
-    await Provider.of<Products>(context, listen: false).setItems();
-  }
-
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
-    final user = Provider.of<Auth>(context).user;
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
@@ -60,10 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () => _refreshHome(context),
-        child: _pages[_currentPageIndex],
-      ),
+      body: _pages[_currentPageIndex],
       bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),
     );
   }
