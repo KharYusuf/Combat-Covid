@@ -1,11 +1,11 @@
 import 'package:Combat_Covid/screens/myCardDetails.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
-  final String img;
-  final String text;
+  final QueryDocumentSnapshot item;
 
-  MyCard(this.img, this.text);
+  MyCard(this.item);
 
   @override
   _MyCardState createState() => _MyCardState();
@@ -22,13 +22,12 @@ class _MyCardState extends State<MyCard> {
         splashColor: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(0.0),
         onPressed: () {
-          print(widget.text);
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => MyCardDetails(widget.text)));
+              builder: (context) => MyCardDetails(widget.item)));
         },
         child: GridTile(
           child: Image(
-            image: NetworkImage(widget.img),
+            image: NetworkImage(widget.item.data()['img']),
             fit: BoxFit.fitWidth,
           ),
           footer: GridTileBar(
@@ -52,9 +51,10 @@ class _MyCardState extends State<MyCard> {
               },
             ),
             title: Text(
-              widget.text,
+              widget.item.data()['text'],
               textAlign: TextAlign.center,
-              style: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
             ),
           ),
         ),

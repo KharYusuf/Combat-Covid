@@ -1,14 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MyCardDetails extends StatelessWidget {
-  final String productId;
+  final QueryDocumentSnapshot item;
   MyCardDetails(
-    this.productId,
+    this.item,
   );
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(productId),
+        title: Text(item.data()["text"]),
       ),
     );
   }
