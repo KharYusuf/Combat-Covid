@@ -7,7 +7,6 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('An experiment');
     return Padding(
       padding: EdgeInsets.all(6.0),
       child: RaisedButton(
