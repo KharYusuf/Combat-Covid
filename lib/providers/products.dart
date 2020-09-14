@@ -14,42 +14,6 @@ class Products with ChangeNotifier {
   }
 
   Stream<QuerySnapshot> _cards;
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My first Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // {
-  //   'img':
-  //       'https://firebasestorage.googleapis.com/v0/b/combat-covid-6fe68.appspot.com/o/assets%2Fhomemade_face_mask.png?alt=media',
-  //   'text': 'My Second Card'
-  // },
-  // ];
 
   Stream<QuerySnapshot> get getItems {
     return _cards;
