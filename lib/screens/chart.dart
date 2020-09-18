@@ -42,7 +42,7 @@ class Chart extends StatelessWidget {
                     domainAxis: new charts.OrdinalAxisSpec(
                       renderSpec: new charts.SmallTickRendererSpec(
                         labelStyle: new charts.TextStyleSpec(
-                          fontSize: 18, // size in Pts.
+                          fontSize: 14, // size in Pts.
                           color:
                               charts.MaterialPalette.blue.shadeDefault.darker,
                         ),
@@ -55,7 +55,7 @@ class Chart extends StatelessWidget {
                     primaryMeasureAxis: new charts.NumericAxisSpec(
                       renderSpec: new charts.GridlineRendererSpec(
                         labelStyle: new charts.TextStyleSpec(
-                          fontSize: 18,
+                          fontSize: 14,
                           color:
                               charts.MaterialPalette.blue.shadeDefault.darker,
                         ),
