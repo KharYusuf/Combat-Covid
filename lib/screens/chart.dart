@@ -16,7 +16,7 @@ class Chart extends StatelessWidget {
         id: "Cases",
         data: casesList,
         domainFn: (ScrapedData series, _) =>
-            DateFormat('yyyy-MM-dd – kk:mm').format(series.date),
+            DateFormat('yyyy-MM-dd').format(series.date),
         measureFn: (ScrapedData series, _) => series.cases,
         colorFn: (ScrapedData series, _) =>
             charts.ColorUtil.fromDartColor(Colors.blue),
@@ -39,6 +39,32 @@ class Chart extends StatelessWidget {
                   child: charts.BarChart(
                     series,
                     animate: true,
+                    domainAxis: new charts.OrdinalAxisSpec(
+                      renderSpec: new charts.SmallTickRendererSpec(
+                        labelStyle: new charts.TextStyleSpec(
+                          fontSize: 18, // size in Pts.
+                          color:
+                              charts.MaterialPalette.blue.shadeDefault.darker,
+                        ),
+                        lineStyle: new charts.LineStyleSpec(
+                          color:
+                              charts.MaterialPalette.blue.shadeDefault.darker,
+                        ),
+                      ),
+                    ),
+                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                      renderSpec: new charts.GridlineRendererSpec(
+                        labelStyle: new charts.TextStyleSpec(
+                          fontSize: 18,
+                          color:
+                              charts.MaterialPalette.blue.shadeDefault.darker,
+                        ),
+                        lineStyle: new charts.LineStyleSpec(
+                          color:
+                              charts.MaterialPalette.blue.shadeDefault.darker,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
