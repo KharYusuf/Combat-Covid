@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/widgets.dart';
@@ -37,6 +38,13 @@ class Auth with ChangeNotifier {
     _user = result.user;
     _signingInFirstTime = false;
 
+    if (result.additionalUserInfo.isNewUser) {
+      await FirebaseFirestore.instance
+          .collection('userFavourites')
+          .doc(_user.uid)
+          .set({'created': 'true'});
+    }
+
     notifyListeners();
   }
 
@@ -54,6 +62,13 @@ class Auth with ChangeNotifier {
       UserCredential result = await _auth.signInWithCredential(credential);
 
       _user = result.user;
+
+      if (result.additionalUserInfo.isNewUser) {
+        await FirebaseFirestore.instance
+            .collection('userFavourites')
+            .doc(_user.uid)
+            .set({'created': 'true'});
+      }
     } catch (Exception) {
       return false;
     }

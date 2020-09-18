@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                         ),
                       ),
                     )
-                  : FutureBuilder(
+                  : FutureBuilder<bool>(
                       future: auth.tryAutoLogin(),
                       builder: (ctx, authResultSnapshot) {
                         print(authResultSnapshot.connectionState);
