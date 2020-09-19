@@ -8,10 +8,12 @@ class Products with ChangeNotifier {
 
   set setUser(User user) {
     _user = user;
-    favStream = FirebaseFirestore.instance
-        .collection('userFavourites')
-        .doc(_user.uid)
-        .snapshots();
+    if (user != null) {
+      favStream = FirebaseFirestore.instance
+          .collection('userFavourites')
+          .doc(_user.uid)
+          .snapshots();
+    }
   }
 
   void setItems() {
