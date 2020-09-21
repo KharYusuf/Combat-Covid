@@ -1,3 +1,4 @@
+import 'package:Combat_Covid/screens/favScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -50,7 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Icons.favorite,
               color: Colors.pink,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FavScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),

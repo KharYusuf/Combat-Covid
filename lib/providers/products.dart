@@ -4,16 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Products with ChangeNotifier {
   User _user;
-  Stream<DocumentSnapshot> favStream;
 
   set setUser(User user) {
     _user = user;
-    if (user != null) {
-      favStream = FirebaseFirestore.instance
-          .collection('userFavourites')
-          .doc(_user.uid)
-          .snapshots();
-    }
   }
 
   void setItems() {
@@ -21,7 +14,10 @@ class Products with ChangeNotifier {
   }
 
   Stream<DocumentSnapshot> get getFav {
-    return favStream;
+    return FirebaseFirestore.instance
+        .collection('userFavourites')
+        .doc(_user.uid)
+        .snapshots();
   }
 
   Future<void> toggleFav(final id) async {
@@ -32,6 +28,13 @@ class Products with ChangeNotifier {
   }
 
   Stream<QuerySnapshot> _cards;
+
+  Future<DocumentSnapshot> getItemById(String id) async {
+    return await FirebaseFirestore.instance
+        .collection('products')
+        .doc(id)
+        .get();
+  }
 
   Stream<QuerySnapshot> get getItems {
     return _cards;

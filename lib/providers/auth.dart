@@ -42,7 +42,7 @@ class Auth with ChangeNotifier {
       await FirebaseFirestore.instance
           .collection('userFavourites')
           .doc(_user.uid)
-          .set({'created': 'true'});
+          .set({'created': false});
     }
 
     notifyListeners();
@@ -67,7 +67,7 @@ class Auth with ChangeNotifier {
         await FirebaseFirestore.instance
             .collection('userFavourites')
             .doc(_user.uid)
-            .set({'created': 'true'});
+            .set({'created': false});
       }
     } catch (Exception) {
       return false;

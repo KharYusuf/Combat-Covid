@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyCard extends StatefulWidget {
-  final QueryDocumentSnapshot item;
+  final DocumentSnapshot item;
 
   MyCard(this.item);
 
