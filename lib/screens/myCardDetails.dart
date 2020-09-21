@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MyCardDetails extends StatelessWidget {
-  final QueryDocumentSnapshot item;
+  final DocumentSnapshot item;
   MyCardDetails(
     this.item,
   );
