@@ -6,11 +6,10 @@ import '../providers/products.dart';
 import 'myCard.dart';
 
 class FavItems extends StatelessWidget {
-  getFavCards(var snapshot, BuildContext context) async {
+  getFavCards(var snapshot) {
     final cards = snapshot.data.data();
-
     var favCards = [];
-    for (var e in cards.entries) {
+    for (final e in cards.entries) {
       if (e.value) {
         favCards.add(e.key);
       }
@@ -30,37 +29,27 @@ class FavItems extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          return FutureBuilder(
-            future: getFavCards(snapshot, context),
-            builder: (context, snap) {
-              if (snap.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return GridView.builder(
-                itemCount: snap.data.length,
-                itemBuilder: (context, i) {
-                  return FutureBuilder(
-                    future: Provider.of<Products>(context)
-                        .getItemById(snap.data[i]),
-                    builder: (context, sna) {
-                      if (sna.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return MyCard(sna.data);
-                      }
-                    },
-                  );
+          final favCards = getFavCards(snapshot);
+          return GridView.builder(
+            itemCount: favCards.length,
+            itemBuilder: (context, i) {
+              return FutureBuilder(
+                future: Provider.of<Products>(context).getItemById(favCards[i]),
+                builder: (context, snapshot1) {
+                  if (snapshot1.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return MyCard(snapshot1.data);
+                  }
                 },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 3 / 2,
-                ),
               );
             },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 1,
+              childAspectRatio: 3 / 2,
+            ),
           );
         });
   }
