@@ -33,6 +33,7 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -43,5 +44,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- API key for google maps-->
+        <meta-data 
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC39Xs7KWEucJ3I8VElpG6LkGAzALD12ME" />
     </application>
 </manifest>
