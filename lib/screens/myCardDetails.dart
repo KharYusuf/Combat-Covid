@@ -11,6 +11,17 @@ class MyCardDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text(item.data()["text"]),
       ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Text(item.data()["details"]),
+            Divider(
+              thickness: 3.0,
+              color: Colors.blue,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
