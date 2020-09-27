@@ -1,6 +1,5 @@
+import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 
 class ShopPickerDialog extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -19,7 +18,7 @@ class ShopPickerDialog extends StatelessWidget {
           context: context,
           builder: (context) {
             bool shopPicked = false;
-            String latitude, longitude, address;
+            String latitude, longitude;
             String display = "Select your Shop's Location";
             return StatefulBuilder(
               builder: (context, setState) {
@@ -58,32 +57,17 @@ class ShopPickerDialog extends StatelessWidget {
                               child: RaisedButton(
                                 child: Text(display),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PlacePicker(
-                                        apiKey: API_KEY,
-                                        onPlacePicked: (result) {
-                                          setState(() {
-                                            address = result.formattedAddress;
-                                            shopPicked = true;
-                                            latitude = result
-                                                .geometry.location.lat
-                                                .toString();
-                                            longitude = result
-                                                .geometry.location.lng
-                                                .toString();
-                                            display =
-                                                "Change your Shop's Location";
-                                          });
-                                          Navigator.of(context).pop();
-                                        },
-                                        initialPosition:
-                                            LatLng(28.7041, 77.1025),
-                                        useCurrentLocation: true,
-                                      ),
-                                    ),
-                                  );
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => MapScreen(
+                                        (final String lat, final String lng) {
+                                      setState(() {
+                                        print(latitude);
+                                        shopPicked = true;
+                                        latitude = lat;
+                                        longitude = lng;
+                                      });
+                                    }),
+                                  ));
                                 },
                               ),
                             ),
@@ -99,7 +83,7 @@ class ShopPickerDialog extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Text(address),
+                                      Text(latitude + " " + longitude),
                                     ],
                                   )
                                 : Text('No preview available'),
