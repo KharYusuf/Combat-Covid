@@ -43,75 +43,74 @@ class ShopPickerDialog extends StatelessWidget {
                       ),
                       Form(
                         key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Name of Shop",
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "Name of Shop",
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: RaisedButton(
-                                child: Text(display),
-                                onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MapScreen(
-                                      (final addr, final lat, final lng) {
-                                        setState(() {
-                                          address = addr;
-                                          shopPicked = true;
-                                          latitude = lat;
-                                          longitude = lng;
-                                          display =
-                                              "Change your Shop's Location";
-                                        });
-                                      },
-                                      latitude == null
-                                          ? 28.7041
-                                          : double.parse(latitude),
-                                      longitude == null
-                                          ? 77.1025
-                                          : double.parse(longitude),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: RaisedButton(
+                                  child: Text(display),
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MapScreen(
+                                        (final addr, final lat, final lng) {
+                                          setState(() {
+                                            address = addr;
+                                            shopPicked = true;
+                                            latitude = lat;
+                                            longitude = lng;
+                                            display =
+                                                "Change your Shop's Location";
+                                          });
+                                        },
+                                        latitude == null
+                                            ? 28.7041
+                                            : double.parse(latitude),
+                                        longitude == null
+                                            ? 77.1025
+                                            : double.parse(longitude),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            shopPicked
-                                ? Column(
-                                    children: <Widget>[
-                                      Container(
-                                        height: 180,
-                                        width: 250,
-                                        child: Image.network(
-                                          genStaticImageURL(
-                                              latitude, longitude),
-                                          fit: BoxFit.cover,
+                              shopPicked
+                                  ? Column(
+                                      children: <Widget>[
+                                        Container(
+                                          child: Image.network(
+                                            genStaticImageURL(
+                                                latitude, longitude),
+                                          ),
                                         ),
-                                      ),
-                                      Text(address),
-                                    ],
-                                  )
-                                : Text('No preview available'),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: RaisedButton(
-                                child: Text("Submit"),
-                                onPressed: () {
-                                  if (_formKey.currentState.validate()) {
-                                    _formKey.currentState.save();
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                              ),
-                            )
-                          ],
+                                        Text(address),
+                                      ],
+                                    )
+                                  : Text('No preview available'),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: RaisedButton(
+                                  child: Text("Submit"),
+                                  onPressed: () {
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
