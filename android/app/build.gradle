@@ -45,6 +45,12 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        // Read the API key from ./local.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("../local.properties").exists()) {
+                file("../local.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
 
     buildTypes {

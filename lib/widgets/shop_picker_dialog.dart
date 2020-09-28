@@ -1,9 +1,11 @@
 import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../secrets.dart';
+
 class ShopPickerDialog extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  static const API_KEY = 'AIzaSyC39Xs7KWEucJ3I8VElpG6LkGAzALD12ME';
+  static const API_KEY = MAPS_API_KEY;
 
   String genStaticImageURL(String latitude, String longitude) {
     return "https://maps.googleapis.com/maps/api/staticmap?markers=$latitude,$longitude&zoom=17&size=400x250&key=$API_KEY";
@@ -18,7 +20,7 @@ class ShopPickerDialog extends StatelessWidget {
           context: context,
           builder: (context) {
             bool shopPicked = false;
-            String latitude, longitude;
+            String latitude, longitude, address;
             String display = "Select your Shop's Location";
             return StatefulBuilder(
               builder: (context, setState) {
@@ -56,19 +58,29 @@ class ShopPickerDialog extends StatelessWidget {
                               padding: EdgeInsets.all(8.0),
                               child: RaisedButton(
                                 child: Text(display),
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
                                     builder: (context) => MapScreen(
-                                        (final String lat, final String lng) {
-                                      setState(() {
-                                        print(latitude);
-                                        shopPicked = true;
-                                        latitude = lat;
-                                        longitude = lng;
-                                      });
-                                    }),
-                                  ));
-                                },
+                                      (final addr, final lat, final lng) {
+                                        setState(() {
+                                          address = addr;
+                                          shopPicked = true;
+                                          latitude = lat;
+                                          longitude = lng;
+                                          display =
+                                              "Change your Shop's Location";
+                                        });
+                                      },
+                                      latitude == null
+                                          ? 28.7041
+                                          : double.parse(latitude),
+                                      longitude == null
+                                          ? 77.1025
+                                          : double.parse(longitude),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             shopPicked
@@ -83,7 +95,7 @@ class ShopPickerDialog extends StatelessWidget {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Text(latitude + " " + longitude),
+                                      Text(address),
                                     ],
                                   )
                                 : Text('No preview available'),
