@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     Provider.of<Products>(context, listen: false).setItems();
+    Provider.of<Products>(context, listen: false).setFormItems();
     super.initState();
   }
 

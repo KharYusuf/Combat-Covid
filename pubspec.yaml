@@ -39,6 +39,9 @@ dependencies:
   tuple: ^1.0.3
   android_metadata: ^0.1.2
   google_maps_place_picker: ^0.10.0
+  multiselect_formfield: ^0.1.4
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

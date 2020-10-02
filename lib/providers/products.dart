@@ -13,6 +13,10 @@ class Products with ChangeNotifier {
     _cards = FirebaseFirestore.instance.collection('products').snapshots();
   }
 
+  void setFormItems() {
+    _formCards = FirebaseFirestore.instance.collection('products').snapshots();
+  }
+
   Stream<DocumentSnapshot> get getFav {
     return FirebaseFirestore.instance
         .collection('userFavourites')
@@ -28,6 +32,7 @@ class Products with ChangeNotifier {
   }
 
   Stream<QuerySnapshot> _cards;
+  Stream<QuerySnapshot> _formCards;
 
   Future<DocumentSnapshot> getItemById(String id) async {
     return await FirebaseFirestore.instance
@@ -38,5 +43,9 @@ class Products with ChangeNotifier {
 
   Stream<QuerySnapshot> get getItems {
     return _cards;
+  }
+
+  Stream<QuerySnapshot> get getFormItems {
+    return _formCards;
   }
 }
