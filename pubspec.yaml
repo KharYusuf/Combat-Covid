@@ -40,7 +40,7 @@ dependencies:
   android_metadata: ^0.1.2
   google_maps_place_picker: ^0.10.0
   multiselect_formfield: ^0.1.4
-
+  expandable: ^4.1.4
 
 
 

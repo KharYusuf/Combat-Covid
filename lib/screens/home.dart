@@ -1,16 +1,15 @@
 import 'package:Combat_Covid/screens/favScreen.dart';
 import 'package:Combat_Covid/widgets/shop_picker_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 import '../widgets/bottom_navigation_bar.dart';
 import '../widgets/main_drawer.dart';
-import '../providers/products.dart';
-import '../widgets/masks.dart';
+import '../widgets/SubCategory.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
+  final shopPicker = ShopPickerDialog();
 
   final String title;
 
@@ -23,17 +22,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int _currentPageIndex = 0;
   final List<Widget> _pages = <Widget>[
-    Masks(),
-    const Text("Dummy tab 2"),
-    const Text("Dummy tab 3"),
+    SubCategory('Mask'),
+    SubCategory('Sanitizer'),
+    SubCategory('Soap'),
   ];
-
-  @override
-  void initState() {
-    Provider.of<Products>(context, listen: false).setItems();
-    Provider.of<Products>(context, listen: false).setFormItems();
-    super.initState();
-  }
 
   void _setSelectedPage(index) {
     setState(() {
@@ -65,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButton: ShopPickerDialog(),
+      floatingActionButton: widget.shopPicker,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: BottomTabs(_currentPageIndex, _setSelectedPage),
     );

@@ -5,7 +5,10 @@ import 'package:provider/provider.dart';
 import '../providers/products.dart';
 import 'myCard.dart';
 
-class Masks extends StatelessWidget {
+class SubCategory extends StatelessWidget {
+  final String title;
+  SubCategory(this.title);
+
   @override
   Widget build(BuildContext context) {
     final cardsStream = Provider.of<Products>(context).getItems;
@@ -18,11 +21,13 @@ class Masks extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          final cards = snapshot.data.docs;
+          final List visibleCards = snapshot.data.docs
+              .where((e) => e.data()['Type'] == title)
+              .toList();
           return GridView.builder(
-            itemCount: cards.length,
+            itemCount: visibleCards.length,
             itemBuilder: (context, i) {
-              return MyCard(cards[i]);
+              return MyCard(visibleCards[i]);
             },
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,

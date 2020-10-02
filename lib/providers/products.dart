@@ -9,14 +9,6 @@ class Products with ChangeNotifier {
     _user = user;
   }
 
-  void setItems() {
-    _cards = FirebaseFirestore.instance.collection('products').snapshots();
-  }
-
-  void setFormItems() {
-    _formCards = FirebaseFirestore.instance.collection('products').snapshots();
-  }
-
   Stream<DocumentSnapshot> get getFav {
     return FirebaseFirestore.instance
         .collection('userFavourites')
@@ -31,9 +23,6 @@ class Products with ChangeNotifier {
     doc.update({id: setTo});
   }
 
-  Stream<QuerySnapshot> _cards;
-  Stream<QuerySnapshot> _formCards;
-
   Future<DocumentSnapshot> getItemById(String id) async {
     return await FirebaseFirestore.instance
         .collection('products')
@@ -42,10 +31,6 @@ class Products with ChangeNotifier {
   }
 
   Stream<QuerySnapshot> get getItems {
-    return _cards;
-  }
-
-  Stream<QuerySnapshot> get getFormItems {
-    return _formCards;
+    return FirebaseFirestore.instance.collection('products').snapshots();
   }
 }

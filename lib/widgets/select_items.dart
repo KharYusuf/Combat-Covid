@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 class SelectItems extends StatefulWidget {
-  final cards;
-  SelectItems(this.cards);
+  final cards, title;
+  SelectItems(this.cards, this.title);
   @override
   _SelectItemsState createState() => _SelectItemsState(cards);
 }
@@ -27,11 +27,12 @@ class _SelectItemsState extends State<SelectItems> {
   Widget build(BuildContext context) {
     return MultiSelectFormField(
       autovalidate: false,
-      title: Text('Select all the products that you sell'),
+      title: Text(widget.title),
       validator: (value) {
         if (value == null || value.length == 0) {
-          return 'Please select one or more options';
+          return 'Please select atleast one or more products';
         }
+        return '';
       },
       fillColor: Colors.transparent,
       chipBackGroundColor: Colors.black,
