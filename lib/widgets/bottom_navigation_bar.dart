@@ -15,15 +15,15 @@ class BottomTabs extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(MyFlutterApp.mask),
-          title: Text('Masks'),
+          label: 'Masks',
         ),
         BottomNavigationBarItem(
           icon: Icon(MyFlutterApp.disinfectant),
-          title: Text('Hand Sanitizers'),
+          label: 'Hand Sanitizers',
         ),
         BottomNavigationBarItem(
           icon: Icon(MyFlutterApp.soap),
-          title: Text('Soaps'),
+          label: 'Soaps',
         ),
       ],
     );
