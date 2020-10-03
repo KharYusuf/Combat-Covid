@@ -39,6 +39,7 @@ dependencies:
   tuple: ^1.0.3
   android_metadata: ^0.1.2
   google_maps_place_picker: ^0.10.0
+  expandable: ^4.1.4
   flushbar: ^1.10.4
 
 
