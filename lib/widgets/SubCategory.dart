@@ -21,18 +21,15 @@ class SubCategory extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          final List visibleCards = snapshot.data.docs
+          final List<QueryDocumentSnapshot> visibleCards = snapshot.data.docs
               .where((e) => e.data()['Type'] == title)
               .toList();
-          return GridView.builder(
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: visibleCards.length,
             itemBuilder: (context, i) {
               return MyCard(visibleCards[i]);
             },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 3 / 2,
-            ),
           );
         });
   }

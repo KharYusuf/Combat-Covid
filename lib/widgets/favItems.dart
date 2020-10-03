@@ -30,25 +30,20 @@ class FavItems extends StatelessWidget {
             );
           }
           final favCards = getFavCards(snapshot);
-          return GridView.builder(
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: favCards.length,
-            itemBuilder: (context, i) {
-              return FutureBuilder(
-                future: Provider.of<Products>(context).getItemById(favCards[i]),
-                builder: (context, snapshot1) {
-                  if (snapshot1.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return MyCard(snapshot1.data);
-                  }
-                },
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 3 / 2,
+            itemBuilder: (context, i) => FutureBuilder(
+              future: Provider.of<Products>(context).getItemById(favCards[i]),
+              builder: (context, snapshot1) {
+                if (snapshot1.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return MyCard(snapshot1.data);
+                }
+              },
             ),
           );
         });

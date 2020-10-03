@@ -114,34 +114,36 @@ class ShopPickerDialog extends StatelessWidget {
                                   child: Text("Submit"),
                                   onPressed: () {
                                     if (selectedItems.isEmpty) {
-                                      print('hi');
                                       Flushbar(
                                         message: "Select atleast 1 product",
                                         icon: Icon(
-                                          Icons.info_outline,
+                                          Icons.error,
                                           size: 28.0,
                                           color: Colors.blue[300],
                                         ),
+                                        duration: Duration(seconds: 5),
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
                                     } else if (_shopController.text.isEmpty) {
                                       Flushbar(
                                         message: "Enter non empty shop name",
                                         icon: Icon(
-                                          Icons.info_outline,
+                                          Icons.error,
                                           size: 28.0,
                                           color: Colors.blue[300],
                                         ),
+                                        duration: Duration(seconds: 5),
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
                                     } else if (!shopPicked) {
                                       Flushbar(
                                         message: "Select Shop Location",
                                         icon: Icon(
-                                          Icons.info_outline,
+                                          Icons.error,
                                           size: 28.0,
                                           color: Colors.blue[300],
                                         ),
+                                        duration: Duration(seconds: 5),
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
                                     } else {
