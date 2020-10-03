@@ -16,13 +16,13 @@ class ShopItemSelector extends StatelessWidget {
       'Soap': Provider.of<Products>(context).getItems,
     };
     return Container(
-        height: 170,
-        width: 200,
-        child: ListView(
-          children: cards.entries
-              .map(
-                  (e) => ShopSubcategorySelector(e.value, e.key, selectedItems))
-              .toList(),
-        ));
+      height: 170,
+      width: 200,
+      child: ListView(
+        children: cards.entries
+            .map((e) => ShopSubcategorySelector(e.value, e.key, selectedItems))
+            .toList(),
+      ),
+    );
   }
 }

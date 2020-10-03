@@ -1,5 +1,6 @@
 import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:Combat_Covid/widgets/shop_item_selector.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 import '../secrets.dart';
@@ -15,6 +16,7 @@ class ShopPickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Set<String> selectedItems = Set();
+    final _shopController = TextEditingController();
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
@@ -52,21 +54,17 @@ class ShopPickerDialog extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: TextFormField(
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Enter a non empty name';
-                                    }
-                                    return null;
-                                  },
+                                  controller: _shopController,
                                   decoration: InputDecoration(
                                     hintText: "Name of Shop",
                                   ),
                                 ),
                               ),
                               Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(8.0),
-                                  child: const Text('Select your products')),
+                                width: double.infinity,
+                                padding: EdgeInsets.all(8.0),
+                                child: const Text('Select your products'),
+                              ),
                               ShopItemSelector(selectedItems),
                               Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -115,9 +113,41 @@ class ShopPickerDialog extends StatelessWidget {
                                 child: RaisedButton(
                                   child: Text("Submit"),
                                   onPressed: () {
-                                    if (_formKey.currentState.validate()) {
+                                    if (selectedItems.isEmpty) {
+                                      print('hi');
+                                      Flushbar(
+                                        message: "Select atleast 1 product",
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          size: 28.0,
+                                          color: Colors.blue[300],
+                                        ),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      )..show(context);
+                                    } else if (_shopController.text.isEmpty) {
+                                      Flushbar(
+                                        message: "Enter non empty shop name",
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          size: 28.0,
+                                          color: Colors.blue[300],
+                                        ),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      )..show(context);
+                                    } else if (!shopPicked) {
+                                      Flushbar(
+                                        message: "Select Shop Location",
+                                        icon: Icon(
+                                          Icons.info_outline,
+                                          size: 28.0,
+                                          color: Colors.blue[300],
+                                        ),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      )..show(context);
+                                    } else {
                                       _formKey.currentState.save();
-                                      Navigator.of(context).pop();
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
                                     }
                                   },
                                 ),
