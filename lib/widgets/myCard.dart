@@ -1,4 +1,5 @@
 import 'package:Combat_Covid/providers/products.dart';
+import 'package:Combat_Covid/screens/view_shops.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,16 @@ class _MyCardState extends State<MyCard> {
                 footer: GridTileBar(
                   leading: IconButton(
                     icon: Icon(Icons.my_location),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ViewShops(
+                            widget.item.id,
+                            widget.item.data()['text'],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   backgroundColor: Colors.black54,
                   trailing: StreamBuilder<DocumentSnapshot>(
@@ -58,7 +68,9 @@ class _MyCardState extends State<MyCard> {
                     widget.item.data()['text'],
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 17.0, fontWeight: FontWeight.bold),
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

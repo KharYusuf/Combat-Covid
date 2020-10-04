@@ -1,5 +1,6 @@
 import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:Combat_Covid/widgets/shop_item_selector.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
@@ -147,6 +148,14 @@ class ShopPickerDialog extends StatelessWidget {
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
                                     } else {
+                                      FirebaseFirestore.instance
+                                          .collection('shops')
+                                          .add({
+                                        'name': _shopController.text,
+                                        'latitude': latitude,
+                                        'longitude': longitude,
+                                        'products': selectedItems.toList(),
+                                      });
                                       _formKey.currentState.save();
                                       Navigator.of(context)
                                           .popUntil((route) => route.isFirst);
