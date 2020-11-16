@@ -1,3 +1,4 @@
+import 'package:Combat_Covid/widgets/shop_edit_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:Combat_Covid/secrets.dart';
@@ -38,7 +39,13 @@ class _ShopCardState extends State<ShopCard> {
               footer: GridTileBar(
                 leading: IconButton(
                   icon: Icon(Icons.edit),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ShopEditDialog(widget.item.id),
+                      ),
+                    );
+                  },
                 ),
                 backgroundColor: Colors.black54,
                 title: Text(

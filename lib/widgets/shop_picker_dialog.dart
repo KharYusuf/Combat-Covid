@@ -159,6 +159,7 @@ class ShopPickerDialog extends StatelessWidget {
                                         'latitude': latitude,
                                         'longitude': longitude,
                                         'products': selectedItems.toList(),
+                                        'address': address,
                                         'addedBy': user.uid,
                                       });
                                       _formKey.currentState.save();
