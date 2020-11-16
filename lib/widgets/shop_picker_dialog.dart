@@ -1,8 +1,11 @@
+import 'package:Combat_Covid/providers/auth.dart';
 import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:Combat_Covid/widgets/shop_item_selector.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../secrets.dart';
 
@@ -17,6 +20,7 @@ class ShopPickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Set<String> selectedItems = Set();
+    User user = Provider.of<Auth>(context).user;
     final _shopController = TextEditingController();
     return FloatingActionButton(
       child: Icon(Icons.add),
@@ -155,6 +159,7 @@ class ShopPickerDialog extends StatelessWidget {
                                         'latitude': latitude,
                                         'longitude': longitude,
                                         'products': selectedItems.toList(),
+                                        'addedBy': user.uid,
                                       });
                                       _formKey.currentState.save();
                                       Navigator.of(context)

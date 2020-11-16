@@ -1,3 +1,4 @@
+import 'package:Combat_Covid/screens/myShops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +41,14 @@ class MyDrawer extends StatelessWidget {
               title: Text('News'),
               onTap: () {
                 Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.store),
+              title: Text('My Shops'),
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => MyShops()));
               },
             ),
             ListTile(
