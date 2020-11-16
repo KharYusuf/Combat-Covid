@@ -161,8 +161,7 @@ class _ShopEditDialogState extends State<ShopEditDialog> {
                                       'address': address,
                                     });
                                     _formKey.currentState.save();
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst);
+                                    Navigator.of(context).pop();
                                   }
                                 },
                               ),
