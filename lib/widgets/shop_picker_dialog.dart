@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:Combat_Covid/providers/auth.dart';
 import 'package:Combat_Covid/screens/map_screen.dart';
 import 'package:Combat_Covid/widgets/shop_item_selector.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 
 import '../secrets.dart';
+import 'image_input.dart';
 
 class ShopPickerDialog extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -20,6 +25,12 @@ class ShopPickerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Set<String> selectedItems = Set();
+    File _image;
+
+    void _selectImage(File pickedImage) {
+      _image = pickedImage;
+    }
+
     User user = Provider.of<Auth>(context).user;
     final _shopController = TextEditingController();
     return FloatingActionButton(
@@ -113,11 +124,15 @@ class ShopPickerDialog extends StatelessWidget {
                                       ],
                                     )
                                   : Text('No preview available'),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ImageInput(_selectImage),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: RaisedButton(
                                   child: Text("Submit"),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (selectedItems.isEmpty) {
                                       Flushbar(
                                         message: "Select atleast 1 product",
@@ -152,10 +167,25 @@ class ShopPickerDialog extends StatelessWidget {
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
                                     } else {
+                                      final String fileName =
+                                          basename(_image.path);
+                                      final StorageReference
+                                          firebaseStorageRef = FirebaseStorage
+                                              .instance
+                                              .ref()
+                                              .child('shops/$fileName');
+                                      final StorageUploadTask uploadTask =
+                                          firebaseStorageRef.putFile(_image);
+                                      final StorageTaskSnapshot taskSnapshot =
+                                          await uploadTask.onComplete;
+                                      final String downloadURL =
+                                          await taskSnapshot.ref
+                                              .getDownloadURL();
                                       FirebaseFirestore.instance
                                           .collection('shops')
                                           .add({
                                         'name': _shopController.text,
+                                        'image': downloadURL,
                                         'latitude': latitude,
                                         'longitude': longitude,
                                         'products': selectedItems.toList(),

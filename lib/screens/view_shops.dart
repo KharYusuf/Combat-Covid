@@ -53,8 +53,8 @@ class ViewShops extends StatelessWidget {
             title: element.data()['name'],
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ShopDetailScreen(
-                      element.data()['name'], element.data()['products'])));
+                  builder: (context) => ShopDetailScreen(element.data()['name'],
+                      element.data()['image'], element.data()['products'])));
             },
           ),
           position: LatLng(

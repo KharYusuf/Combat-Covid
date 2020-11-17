@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import '../providers/products.dart';
 
 class ShopDetailScreen extends StatelessWidget {
-  final title;
+  final String title, url;
 
   final List<dynamic> products;
 
-  ShopDetailScreen(this.title, this.products);
+  ShopDetailScreen(this.title, this.url, this.products);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,32 @@ class ShopDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Welcome to our shop! ',
+              style: Theme.of(context).accentTextTheme.bodyText1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: double.infinity,
+              height: 200,
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.grey),
+              ),
+              child: Image.network(
+                url,
+                fit: BoxFit.cover,
+                height: double.infinity,
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'The following items are available at our shop: ',
               style: Theme.of(context).accentTextTheme.bodyText1,

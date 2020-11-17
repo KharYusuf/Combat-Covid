@@ -1,7 +1,6 @@
 import 'package:Combat_Covid/widgets/shop_edit_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:Combat_Covid/secrets.dart';
 
 class ShopCard extends StatefulWidget {
   final DocumentSnapshot item;
@@ -13,12 +12,6 @@ class ShopCard extends StatefulWidget {
 }
 
 class _ShopCardState extends State<ShopCard> {
-  static const API_KEY = MAPS_API_KEY;
-
-  String genStaticImageURL(String latitude, String longitude) {
-    return "https://maps.googleapis.com/maps/api/staticmap?markers=$latitude,$longitude&zoom=17&size=400x250&key=$API_KEY";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,10 +23,7 @@ class _ShopCardState extends State<ShopCard> {
             child: GridTile(
               child: Image(
                 image: NetworkImage(
-                  genStaticImageURL(
-                    widget.item.data()['latitude'],
-                    widget.item.data()['longitude'],
-                  ),
+                  widget.item.data()['image'],
                 ),
               ),
               footer: GridTileBar(
