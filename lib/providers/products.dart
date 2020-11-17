@@ -23,6 +23,13 @@ class Products with ChangeNotifier {
     doc.update({id: setTo});
   }
 
+  Future<QuerySnapshot> getShopsByProductId(final id) async {
+    return await FirebaseFirestore.instance
+        .collection('shops')
+        .where('products', arrayContains: id)
+        .get();
+  }
+
   Future<DocumentSnapshot> getItemById(String id) async {
     return await FirebaseFirestore.instance
         .collection('products')

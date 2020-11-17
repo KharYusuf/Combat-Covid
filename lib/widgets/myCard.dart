@@ -42,6 +42,7 @@ class _MyCardState extends State<MyCard> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
+                          fullscreenDialog: true,
                           builder: (context) => ViewShops(
                             widget.item.id,
                             widget.item.data()['text'],
