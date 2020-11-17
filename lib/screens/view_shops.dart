@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:location/location.dart';
 
 import '../providers/products.dart';
 
@@ -15,6 +16,28 @@ class ViewShops extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<QuerySnapshot> _getShops() async =>
         await Provider.of<Products>(context).getShopsByProductId(id);
+
+    Future<LocationData> _getPosition() async {
+      Location location = new Location();
+
+      bool _serviceEnabled;
+      PermissionStatus _permissionGranted;
+      LocationData _locationData;
+
+      _serviceEnabled = await location.serviceEnabled();
+      if (!_serviceEnabled) {
+        _serviceEnabled = await location.requestService();
+      }
+
+      _permissionGranted = await location.hasPermission();
+      if (_permissionGranted == PermissionStatus.denied) {
+        _permissionGranted = await location.requestPermission();
+      }
+
+      _locationData = await location.getLocation();
+
+      return _locationData;
+    }
 
     Set<Marker> _getMarkers(List<QueryDocumentSnapshot> shops) {
       Set<Marker> markers = Set();
@@ -58,15 +81,28 @@ class ViewShops extends StatelessWidget {
       body: FutureBuilder<QuerySnapshot>(
           future: _getShops(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.waiting) {
-              print(snapshot.data.docs.length);
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
             }
-            return GoogleMap(
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(28.7041, 77.1025), zoom: 16),
-              markers: snapshot.connectionState == ConnectionState.waiting
-                  ? {}
-                  : _getMarkers(snapshot.data.docs),
+            return FutureBuilder<LocationData>(
+              future: _getPosition(),
+              builder: (context, pos) {
+                if (pos.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                return GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                      pos.data.latitude,
+                      pos.data.longitude,
+                    ),
+                    zoom: 16,
+                  ),
+                  markers: snapshot.connectionState == ConnectionState.waiting
+                      ? {}
+                      : _getMarkers(snapshot.data.docs),
+                );
+              },
             );
           }),
     );
