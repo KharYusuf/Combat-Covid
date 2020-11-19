@@ -1,4 +1,5 @@
 import 'package:Combat_Covid/providers/shops.dart';
+import 'package:Combat_Covid/providers/stats.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ShopsPro(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Stats(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
             create: (context) => Products(),

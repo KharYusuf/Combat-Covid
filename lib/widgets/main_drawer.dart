@@ -1,6 +1,7 @@
 import 'package:Combat_Covid/screens/myShops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../screens/chart.dart';
 import '../providers/auth.dart';
@@ -39,8 +40,13 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.new_releases),
               title: Text('News'),
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                const url = 'https://www.mygov.in/covid-19/';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
               },
             ),
             ListTile(
