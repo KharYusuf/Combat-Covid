@@ -166,6 +166,17 @@ class ShopPickerDialog extends StatelessWidget {
                                         duration: Duration(seconds: 5),
                                         leftBarIndicatorColor: Colors.blue[300],
                                       )..show(context);
+                                    } else if (_image == null) {
+                                      Flushbar(
+                                        message: "Capture Shop's Image",
+                                        icon: Icon(
+                                          Icons.error,
+                                          size: 28.0,
+                                          color: Colors.blue[300],
+                                        ),
+                                        duration: Duration(seconds: 5),
+                                        leftBarIndicatorColor: Colors.blue[300],
+                                      )..show(context);
                                     } else {
                                       final String fileName =
                                           basename(_image.path);
@@ -192,6 +203,10 @@ class ShopPickerDialog extends StatelessWidget {
                                         'address': address,
                                         'addedBy': user.uid,
                                       });
+                                      _shopController.text = '';
+                                      selectedItems.clear();
+                                      _image = null;
+                                      shopPicked = false;
                                       _formKey.currentState.save();
                                       Navigator.of(context)
                                           .popUntil((route) => route.isFirst);
